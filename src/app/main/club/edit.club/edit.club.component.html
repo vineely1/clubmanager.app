@@ -1,0 +1,71 @@
+<kendo-dialog *ngIf="active" [width]="600" [height]="400" (close)="closeForm()">
+    <kendo-dialog-titlebar>
+        {{ isNew ? "Add new club" : "Edit club" }}
+    </kendo-dialog-titlebar>
+
+    <form novalidate class="k-form k-form-md row" [formGroup]="editForm">
+        <div  class="col-md-6">
+        <kendo-formfield>
+            <kendo-label [for]="name" text="Name" labelCssClass="k-form-label"></kendo-label>
+            <kendo-textbox #name formControlName="name" required></kendo-textbox>
+            <kendo-formerror>Error: Club name is required</kendo-formerror>
+        </kendo-formfield>
+
+        <kendo-formfield>
+            <kendo-label [for]="description" text="Description" labelCssClass="k-form-label"></kendo-label>
+            <kendo-textbox #description formControlName="description" required></kendo-textbox>
+            <kendo-formerror>Error: Club description is required</kendo-formerror>
+        </kendo-formfield>
+
+        <kendo-formfield>
+            <kendo-label [for]="contactEmail" text="Contact Email" labelCssClass="k-form-label"></kendo-label>
+            <kendo-textbox #contactEmail formControlName="contactEmail" required></kendo-textbox>
+            <kendo-formerror *ngIf="editForm.controls['contactEmail'].errors?.['required']">
+                Error: Email is required
+            </kendo-formerror>
+            <kendo-formerror *ngIf="editForm.controls['contactEmail'].errors?.['email']">
+                Error: Not valid email format
+            </kendo-formerror>
+        </kendo-formfield>
+
+        <kendo-formfield>
+            <kendo-label [for]="contactNumber" text="Contact Number" labelCssClass="k-form-label"></kendo-label>
+            <kendo-textbox #contactNumber formControlName="contactNumber" required></kendo-textbox>
+            <kendo-formerror *ngIf="editForm.controls['contactNumber'].errors?.['required']">
+                Error: Email is required
+            </kendo-formerror>
+            <kendo-formerror *ngIf="editForm.controls['contactNumber'].errors?.['pattern']">
+                Error: Not valid number format
+            </kendo-formerror>
+        </kendo-formfield>
+        </div>
+        <div class="col-md-6">
+        <kendo-formfield>
+            <kendo-label [for]="addressLine1" text="Address Line 1" labelCssClass="k-form-label"></kendo-label>
+            <kendo-textbox #addressLine1 formControlName="addressLine1" required></kendo-textbox>
+        </kendo-formfield>
+        <kendo-formfield>
+            <kendo-label [for]="addressLine2" text="Address Line 2" labelCssClass="k-form-label"></kendo-label>
+            <kendo-textbox #addressLine2 formControlName="addressLine2" required></kendo-textbox>
+        </kendo-formfield>
+        <kendo-formfield>
+            <kendo-label [for]="postalCode" text="Postal Code" labelCssClass="k-form-label"></kendo-label>
+            <kendo-textbox #postalCode formControlName="postalCode" required></kendo-textbox>
+        </kendo-formfield>
+        <kendo-formfield>
+            <kendo-label [for]="city" text="City" labelCssClass="k-form-label"></kendo-label>
+            <kendo-textbox #city formControlName="city" required></kendo-textbox>
+        </kendo-formfield>
+    </div>
+    </form>
+
+    <kendo-dialog-actions layout="end">
+        <button kendoButton themeColor="primary" [svgIcon]="saveIcon" [disabled]="!editForm.valid"
+            (click)="onSave($event)">
+            Save
+        </button>
+        <button kendoButton [svgIcon]="cancelIcon" (click)="onCancel($event)">
+            Cancel
+        </button>
+    </kendo-dialog-actions>
+</kendo-dialog>

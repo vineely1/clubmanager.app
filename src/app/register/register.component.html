@@ -1,0 +1,58 @@
+<div class="login-container">
+    <div class="login-box">
+        <form class="k-form" [formGroup]="form">
+            <fieldset class="k-form-fieldset">
+                <img src="/assets/img/logo.png" width="250px" />
+                <legend class="k-form-legend">Register</legend>
+
+                <kendo-formfield>
+                    <kendo-label [for]="email" text="Email"> </kendo-label>
+                    <kendo-textbox formControlName="email" #email required [clearButton]="true">
+                    </kendo-textbox>
+                    <kendo-formerror *ngIf="form.controls['email'].errors?.['required']">
+                        Error: Email is required
+                    </kendo-formerror>
+                    <kendo-formerror *ngIf="form.controls['email'].errors?.['email']">
+                        Error: Not valid email format
+                    </kendo-formerror>
+                </kendo-formfield>
+
+                <kendo-formfield>
+                    <kendo-label [for]="password" text="Password"> </kendo-label>
+                    <kendo-textbox formControlName="password" #password required>
+                        <ng-template kendoTextBoxSuffixTemplate>
+                            <button kendoButton look="clear" [svgIcon]="eye" (click)="toggleVisibility('password')">
+                            </button>
+                        </ng-template>
+                    </kendo-textbox>
+                    <kendo-formerror>Error: Password is required</kendo-formerror>
+                </kendo-formfield>
+
+                <kendo-formfield>
+                    <kendo-label [for]="confirmPassword" text="Confirm Password"> </kendo-label>
+                    <kendo-textbox formControlName="confirmPassword" #confirmPassword required>
+                        <ng-template kendoTextBoxSuffixTemplate>
+                            <button kendoButton look="clear" [svgIcon]="eye" (click)="toggleVisibility('confirmPassword')">
+                            </button>
+                        </ng-template>
+                    </kendo-textbox>
+                    <kendo-formerror *ngIf="form.controls['confirmPassword'].errors?.['required']">
+                        Error: Confirm Password  is required
+                    </kendo-formerror>
+                    <kendo-formerror *ngIf="form.controls['confirmPassword'].errors?.['PasswordNoMatch']">
+                        Error: Password and Confirm Password need to match
+                    </kendo-formerror>
+                </kendo-formfield>
+
+                <div class="k-form-buttons pt-2">
+                    <button kendoButton themeColor="primary" (click)="submit()">
+                        Register
+                    </button>
+                </div>
+                <div class="pt-2">
+                    <a routerLink="/login">Back to login</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

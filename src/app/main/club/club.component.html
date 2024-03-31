@@ -1,0 +1,54 @@
+<div class="container-fluid">
+    <div class='row my-4'>
+        <div class='col-12 col-lg-9 border-right'>
+            <kendo-grid
+              [data]="gridView"
+              [pageSize]="take"
+              [pageable]="true"
+              [skip]="skip"
+              [loading]="isLoading"
+              (edit)="editHandler($event)"
+              (add)="addHandler()"
+              (remove)="removeHandler($event)"
+              (pageChange)="pageChange($event)"
+               [navigable]="true">
+                <ng-template kendoGridToolbarTemplate>
+                    <button kendoGridAddCommand>Add new</button>
+                </ng-template>
+                <kendo-grid-column field="name" title="Name"></kendo-grid-column>
+                <kendo-grid-column field="description" title="Description"></kendo-grid-column>
+                <kendo-grid-column field="contactEmail" title="Contact Email"></kendo-grid-column>
+                <kendo-grid-column field="contactNumber" title="Contact Number"></kendo-grid-column>
+                <kendo-grid-command-column title="command" [width]="220">
+                    <ng-template kendoGridCellTemplate let-isNew="isNew">
+                        <button kendoGridEditCommand [primary]="true">Edit</button>
+                        <button kendoGridRemoveCommand>Remove</button>
+                    </ng-template>
+                </kendo-grid-command-column>
+                <ng-template kendoGridLoadingTemplate>
+                  <div class="k-loading-color"></div>
+                  <div class="loading-container">
+                    <kendo-loader type="pulsing" size="large"></kendo-loader>
+                  </div>
+                </ng-template>
+            </kendo-grid>
+            <app-edit-club
+              [model]="editDataItem"
+              [isNew]="isNew"
+              (save)="saveHandler($event)"
+              (cancel)="cancelHandler()"
+            ></app-edit-club>
+            <kendo-dialog *ngIf="clubToRemove">
+                Are you sure you want to delete: {{ clubToRemove.name }} ?
+                <kendo-dialog-actions layout="end">
+                    <button kendoButton (click)="deleteClub()">OK</button>
+                    <button kendoButton (click)="cancelDelete()">Cancel</button>
+                </kendo-dialog-actions>
+            </kendo-dialog>
+        </div>
+        <div class='col-12 col-lg-3 mt-3 mt-lg-0'>
+            <h3>Clubs</h3>
+            <p>This is a description for Clubs.</p>
+        </div>
+    </div>
+</div>

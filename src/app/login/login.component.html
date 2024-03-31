@@ -1,0 +1,49 @@
+<div class="login-container">
+    <div class="login-box">
+        <div class="k-loading-panel" *ngIf="loadingPanelVisible">
+            <div class="k-loading-panel-mask"></div>
+            <div class="k-loading-panel-wrapper">
+                <kendo-loader type="infinite-spinner" themeColor="primary" size="large">
+                </kendo-loader>
+                <div class="k-loading-panel-text">Loading...</div>
+            </div>
+        </div>
+        <form class="k-form" [formGroup]="form">
+            <fieldset class="k-form-fieldset">
+                <img src="/assets/img/logo.png" width="250px" />
+
+                <kendo-formfield>
+                    <kendo-label [for]="email" text="Email"> </kendo-label>
+                    <kendo-textbox formControlName="email" #email required [clearButton]="true">
+                    </kendo-textbox>
+                    <kendo-formerror *ngIf="form.controls['email'].errors?.['required']">
+                        Error: Email is required
+                    </kendo-formerror>
+                    <kendo-formerror *ngIf="form.controls['email'].errors?.['email']">
+                        Error: Not valid email format
+                    </kendo-formerror>
+                </kendo-formfield>
+
+                <kendo-formfield>
+                    <kendo-label [for]="password" text="Password"> </kendo-label>
+                    <kendo-textbox formControlName="password" #password required>
+                        <ng-template kendoTextBoxSuffixTemplate>
+                            <button kendoButton look="clear" [svgIcon]="eye" (click)="toggleVisibility()">
+                            </button>
+                        </ng-template>
+                    </kendo-textbox>
+                    <kendo-formerror>Error: Password is required</kendo-formerror>
+                </kendo-formfield>
+
+                <div class="k-form-buttons pt-2">
+                    <button kendoButton themeColor="primary" (click)="submit()">
+                        Submit
+                    </button>
+                </div>
+                <div class="pt-2">
+                    <a routerLink="/register">Register</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
